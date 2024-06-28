@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);
 
-		// draw line
+		// draw cube
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
 		SDL_RenderDrawLine(renderer, 200, 100, 600, 100);
 		SDL_RenderDrawLine(renderer, 200, 500, 600, 500);
@@ -49,6 +49,15 @@ int main(int argc, char* argv[])
 		SDL_RenderDrawLine(renderer, 600, 100, 530, 170);
 		SDL_RenderDrawLine(renderer, 200, 500, 270, 430);
 		SDL_RenderDrawLine(renderer, 600, 500, 530, 430);
+
+		// clear the cube and draw random lines and dots instead
+		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		//SDL_RenderClear(renderer);
+		for (int i = 0; i < 300; i++) {
+			SDL_SetRenderDrawColor(renderer, rand() % 256, rand() % 256, rand() % 256, 0); // Random color
+			SDL_RenderDrawLine(renderer, rand() % 800, rand() % 600, rand() % 800, rand() % 600); // Random line
+			SDL_RenderDrawPoint(renderer, rand() % 800, rand() % 600); // Random point
+		}
 
 		// show screen
 		SDL_RenderPresent(renderer);

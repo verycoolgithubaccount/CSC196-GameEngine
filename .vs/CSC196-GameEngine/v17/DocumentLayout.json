@@ -35,8 +35,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-06-26T15:43:23.842Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -49,8 +48,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-06-26T15:42:57.459Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -60,7 +58,7 @@
               "RelativeDocumentMoniker": "Game\\Source\\Main.cpp",
               "ToolTip": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Game\\Source\\Main.cpp",
               "RelativeToolTip": "Game\\Source\\Main.cpp",
-              "ViewState": "AQIAADYAAAAAAAAAAAAAACwAAAAqAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAADgAAABJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-06-26T15:33:18.73Z",
               "EditorCaption": ""
