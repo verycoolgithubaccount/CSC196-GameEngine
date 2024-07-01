@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{919FE2F7-7A16-4297-823A-0B8E287C4A21}|Engine\\Engine.vcxproj|C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{919FE2F7-7A16-4297-823A-0B8E287C4A21}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Source\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{919FE2F7-7A16-4297-823A-0B8E287C4A21}|Engine\\Engine.vcxproj|C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{919FE2F7-7A16-4297-823A-0B8E287C4A21}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Source\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4F43361F-7F18-49C4-AD7B-F633144355BE}|Game\\Game.vcxproj|C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Game\\Source\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4F43361F-7F18-49C4-AD7B-F633144355BE}|Game\\Game.vcxproj|solutionrelative:Game\\Source\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{919FE2F7-7A16-4297-823A-0B8E287C4A21}|Engine\\Engine.vcxproj|C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{919FE2F7-7A16-4297-823A-0B8E287C4A21}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Source\\Test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{919FE2F7-7A16-4297-823A-0B8E287C4A21}|Engine\\Engine.vcxproj|C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Test.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{919FE2F7-7A16-4297-823A-0B8E287C4A21}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Source\\Test.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,43 +22,44 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Renderer.h",
+              "DocumentMoniker": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Renderer.h",
+              "RelativeDocumentMoniker": "Engine\\Source\\Renderer.h",
+              "ToolTip": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Renderer.h",
+              "RelativeToolTip": "Engine\\Source\\Renderer.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-01T15:07:16.221Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Test.cpp",
-              "DocumentMoniker": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Test.cpp",
-              "RelativeDocumentMoniker": "Engine\\Source\\Test.cpp",
-              "ToolTip": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Test.cpp",
-              "RelativeToolTip": "Engine\\Source\\Test.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAABAAAA",
+              "Title": "Renderer.cpp",
+              "DocumentMoniker": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Renderer.cpp",
+              "RelativeDocumentMoniker": "Engine\\Source\\Renderer.cpp",
+              "ToolTip": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Renderer.cpp",
+              "RelativeToolTip": "Engine\\Source\\Renderer.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-06-26T15:43:23.842Z",
-              "IsPinned": true
+              "WhenOpened": "2024-07-01T15:06:51.535Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Test.h",
-              "DocumentMoniker": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Test.h",
-              "RelativeDocumentMoniker": "Engine\\Source\\Test.h",
-              "ToolTip": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Engine\\Source\\Test.h",
-              "RelativeToolTip": "Engine\\Source\\Test.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-06-26T15:42:57.459Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "Main.cpp",
               "DocumentMoniker": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Game\\Source\\Main.cpp",
               "RelativeDocumentMoniker": "Game\\Source\\Main.cpp",
               "ToolTip": "C:\\workspace\\neumont\\CSC196-C\u002B\u002B-II\\inClass\\CSC196-GameEngine\\Game\\Source\\Main.cpp",
               "RelativeToolTip": "Game\\Source\\Main.cpp",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAADgAAABJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-06-26T15:33:18.73Z",
               "EditorCaption": ""

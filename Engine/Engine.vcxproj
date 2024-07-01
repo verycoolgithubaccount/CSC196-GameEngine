@@ -155,10 +155,10 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Test.h" />
+    <ClInclude Include="Source\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Test.cpp" />
+    <ClCompile Include="Source\Renderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
