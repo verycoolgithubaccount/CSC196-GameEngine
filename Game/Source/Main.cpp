@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <iostream>
 #include <vector>
+#include <fmod.hpp>
 
 int main(int argc, char* argv[])
 {
@@ -19,17 +20,50 @@ int main(int argc, char* argv[])
 	Input input;
 	input.Initialize();
 
+	// create audio system
+	FMOD::System* audio;
+	FMOD::System_Create(&audio);
+
+	void* extradriverdata = nullptr;
+
+	audio->init(32, FMOD_INIT_NORMAL, extradriverdata);
+
 	Time time;
 
 	vector<Vector2> points;
 
 	vector<Particle> particles;
+
 	/*
 	for (int i = 0; i < 1000; i++)
 	{
 		particles.push_back(Particle{ { rand() % 800, rand() % 600}, { randomf(0, 300), 0.0f}}); // Particle at the beginning is optional like how the Vector2s I removed are optional
 	}
 	*/
+
+	FMOD::Sound* sound = nullptr; 
+	audio->createSound("test.wav", FMOD_DEFAULT, 0, &sound);
+
+	audio->playSound(sound, 0, false, nullptr);
+
+	vector<FMOD::Sound*> sounds;
+	audio->createSound("bass.wav", FMOD_DEFAULT, 0, &sound);
+	sounds.push_back(sound);
+
+	audio->createSound("clap.wav", FMOD_DEFAULT, 0, &sound);
+	sounds.push_back(sound);
+
+	audio->createSound("close-hat.wav", FMOD_DEFAULT, 0, &sound);
+	sounds.push_back(sound);
+
+	audio->createSound("cowbell.wav", FMOD_DEFAULT, 0, &sound);
+	sounds.push_back(sound);
+
+	audio->createSound("open-hat.wav", FMOD_DEFAULT, 0, &sound);
+	sounds.push_back(sound);
+
+	audio->createSound("snare.wav", FMOD_DEFAULT, 0, &sound);
+	sounds.push_back(sound);
 
 	// Main loop (every frame)
 	bool quit = false;
@@ -46,13 +80,22 @@ int main(int argc, char* argv[])
 			quit = true;
 		}
 
+		if (input.getKeyDown(SDL_SCANCODE_Q) && !input.getPreviousKeyDown(SDL_SCANCODE_Q)) audio->playSound(sounds[0], 0, false, nullptr);
+		if (input.getKeyDown(SDL_SCANCODE_W) && !input.getPreviousKeyDown(SDL_SCANCODE_W)) audio->playSound(sounds[1], 0, false, nullptr);
+		if (input.getKeyDown(SDL_SCANCODE_E) && !input.getPreviousKeyDown(SDL_SCANCODE_E)) audio->playSound(sounds[2], 0, false, nullptr);
+		if (input.getKeyDown(SDL_SCANCODE_R) && !input.getPreviousKeyDown(SDL_SCANCODE_R)) audio->playSound(sounds[3], 0, false, nullptr);
+		if (input.getKeyDown(SDL_SCANCODE_T) && !input.getPreviousKeyDown(SDL_SCANCODE_T)) audio->playSound(sounds[4], 0, false, nullptr);
+		if (input.getKeyDown(SDL_SCANCODE_Y) && !input.getPreviousKeyDown(SDL_SCANCODE_Y)) audio->playSound(sounds[5], 0, false, nullptr);
+
+
 		/* ---------- UPDATE ---------- */
+		audio->update();
 
 		Vector2 mousePosition = input.GetMousePosition();
 		if (input.GetMouseButtonDown(0) && !input.GetPreviousMouseButtonDown(0))
 		{
 			for (int i = 0; i < 2; i++) {
-				uint8_t color[] = { random(0, 256), random(0, 256), random(0, 256), random(0, 256) };
+				uint8_t color[] = {(uint8_t) random(0, 256), (uint8_t) random(0, 256), (uint8_t) random(0, 256), (uint8_t) random(0, 256) };
 				for (int j = 0; j < 100; j++)
 				{
 					particles.push_back(Particle{ mousePosition, { randomf(-300, 300), randomf(-300, 300)}, randomf(1, 5), color });
