@@ -1,6 +1,9 @@
 #include "Renderer.h"
 #include "Vector2.h"
 #include "Input.h"
+#include "Particle.h"
+#include "Random.h"
+#include "EngineTime.h"
 
 #include <SDL.h>
 #include <iostream>
@@ -16,16 +19,24 @@ int main(int argc, char* argv[])
 	Input input;
 	input.Initialize();
 
+	Time time;
+
 	vector<Vector2> points;
-	/*for (int i = 0; i < 100; i++)
+
+	vector<Particle> particles;
+	/*
+	for (int i = 0; i < 1000; i++)
 	{
-		points.push_back(Vector2{ rand() % 800, rand() % 600 });
-	}*/
+		particles.push_back(Particle{ { rand() % 800, rand() % 600}, { randomf(0, 300), 0.0f}}); // Particle at the beginning is optional like how the Vector2s I removed are optional
+	}
+	*/
 
 	// Main loop (every frame)
 	bool quit = false;
 	while (!quit)
 	{
+		time.Tick();
+
 		/* ---------- INPUT ---------- */
 
 		input.Update();
@@ -38,27 +49,23 @@ int main(int argc, char* argv[])
 		/* ---------- UPDATE ---------- */
 
 		Vector2 mousePosition = input.GetMousePosition();
-		//cout << mousePosition.x << ", " << mousePosition.y << endl;
-
-		if (input.GetMouseButtonDown(0) && !input.GetPreviousMouseButtonDown(0)) // Click left button
+		if (input.GetMouseButtonDown(0) && !input.GetPreviousMouseButtonDown(0))
 		{
-			points.push_back(mousePosition);
-		}
-		if (input.GetMouseButtonDown(0) && input.GetPreviousMouseButtonDown(0)) // Hold left button
-		{
-			float distance = (points.back() - mousePosition).Length(); // Get distance between last and current point
-			if (distance > 5) points.push_back(mousePosition);
-		}
-		if (!input.GetMouseButtonDown(0) && input.GetPreviousMouseButtonDown(0))
-		{
-			cout << "Left button released" << endl;
+			for (int i = 0; i < 2; i++) {
+				uint8_t color[] = { random(0, 256), random(0, 256), random(0, 256), random(0, 256) };
+				for (int j = 0; j < 100; j++)
+				{
+					particles.push_back(Particle{ mousePosition, { randomf(-300, 300), randomf(-300, 300)}, randomf(1, 5), color });
+				}
+			}	
 		}
 
-		/*Vector2 speed{ 0.1f, -0.1f };
-		for (Vector2& point : points)
+		for (Particle& particle : particles)
 		{
-			point = point + 0.002f;
-		}*/
+			particle.Update(time.GetDeltaTime());
+			//if (particle.position.x > 800) particle.position.x = 0;
+			//if (particle.position.x < 0) particle.position.x = 800;
+		}
 
 		/* ---------- DRAW ---------- */
 		
@@ -66,36 +73,18 @@ int main(int argc, char* argv[])
 		renderer.SetColor(0, 0, 0, 0);
 		renderer.BeginFrame();
 
-		// draw cube
+		// draw shape
 		renderer.SetColor(255, 255, 255, 0);
-		/*renderer.DrawLine(200, 100, 600, 100);
-		renderer.DrawLine(200, 500, 600, 500);
-		renderer.DrawLine(200, 100, 200, 500);
-		renderer.DrawLine(600, 100, 600, 500);
-		
-		renderer.DrawLine(270, 170, 530, 170);
-		renderer.DrawLine(270, 430, 530, 430);
-		renderer.DrawLine(270, 170, 270, 430);
-		renderer.DrawLine(530, 170, 530, 430);
-		
-		renderer.DrawLine(200, 100, 270, 170);
-		renderer.DrawLine(600, 100, 530, 170);
-		renderer.DrawLine(200, 500, 270, 430);
-		renderer.DrawLine(600, 500, 530, 430);*/
+		for (Particle particle : particles)
+		{
+			particle.Draw(renderer);
+		}
 
 		for (int i = 0; points.size() > 1 && i < points.size() - 1; i++) 
 		{
 			renderer.SetColor(rand() % 256, rand() % 256, rand() % 256, 0);
 			renderer.DrawLine(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
 		}
-
-		/*for (int i = 0; i < 300; i++) 
-		{
-			renderer.SetColor(rand() % 256, rand() % 256, rand() % 256, 0); // Random color
-			renderer.DrawLine(rand() % 800, rand() % 600, rand() % 800, rand() % 600); // Random line
-			renderer.DrawPoint(rand() % 800, rand() % 600); // Random point
-		}
-		*/
 
 		// show screen
 		renderer.EndFrame();
