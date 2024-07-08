@@ -1,5 +1,7 @@
 #pragma once
 #include <random>
+#include "Vector2.h"
+#include "MathUtils.h"
 using namespace std;
 
 // Inline injects this code into wherever it's called instead of referencing it, becuase these functions are outside of a class
@@ -12,3 +14,9 @@ inline int random(int min, int max) { return min + random(max - min); }
 inline float randomf() { return rand() / (float) RAND_MAX; } // At least one of the inputs needs to be a float so the output is a float
 inline float randomf(float max) { return max * randomf(); }
 inline float randomf(float min, float max) { return min + randomf(max - min); }
+
+inline Vector2 randomOnUnitCircle()
+{
+	float angle = randomf(0, 360);
+	return Vector2{ Math::Cos(Math::DegToRad(angle)), Math::Sin(Math::DegToRad(angle)) };
+}

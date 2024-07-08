@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Source\EngineTime.h" />
     <ClInclude Include="Source\Input.h" />
+    <ClInclude Include="Source\MathUtils.h" />
     <ClInclude Include="Source\Particle.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\Renderer.h" />

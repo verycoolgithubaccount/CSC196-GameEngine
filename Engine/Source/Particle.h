@@ -8,6 +8,7 @@ struct Particle
 	Vector2 velocity{ 0, 0 };
 	float lifespan = 0;
 	uint8_t red, green, blue, alpha = 0;
+	float size = 4;
 
 	Particle() = default;
 	Particle(Vector2 position, Vector2 velocity) :
@@ -27,14 +28,15 @@ struct Particle
 		blue{ 255 },
 		alpha{ 255 }
 	{}
-	Particle(Vector2 position, Vector2 velocity, float lifespan, uint8_t color[4]) :
+	Particle(Vector2 position, Vector2 velocity, float lifespan, uint8_t color[4], float size) :
 		position{ position },
 		velocity{ velocity },
 		lifespan{ lifespan },
 		red{ color[0] },
 		green{ color[1] },
 		blue{ color[2] },
-		alpha{ color[3] }
+		alpha{ color[3] },
+		size{ size }
 	{}
 
 	void Update(float dt); // delta time - time elapsed since last frame

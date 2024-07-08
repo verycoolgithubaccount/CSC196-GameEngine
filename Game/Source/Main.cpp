@@ -4,6 +4,7 @@
 #include "Particle.h"
 #include "Random.h"
 #include "EngineTime.h"
+#include "MathUtils.h"
 
 #include <SDL.h>
 #include <iostream>
@@ -30,16 +31,9 @@ int main(int argc, char* argv[])
 
 	Time time;
 
-	vector<Vector2> points;
-
 	vector<Particle> particles;
 
-	/*
-	for (int i = 0; i < 1000; i++)
-	{
-		particles.push_back(Particle{ { rand() % 800, rand() % 600}, { randomf(0, 300), 0.0f}}); // Particle at the beginning is optional like how the Vector2s I removed are optional
-	}
-	*/
+	float offset = 0;
 
 	FMOD::Sound* sound = nullptr; 
 	audio->createSound("test.wav", FMOD_DEFAULT, 0, &sound);
@@ -94,13 +88,25 @@ int main(int argc, char* argv[])
 		Vector2 mousePosition = input.GetMousePosition();
 		if (input.GetMouseButtonDown(0) && !input.GetPreviousMouseButtonDown(0))
 		{
-			for (int i = 0; i < 2; i++) {
-				uint8_t color[] = {(uint8_t) random(0, 256), (uint8_t) random(0, 256), (uint8_t) random(0, 256), (uint8_t) random(0, 256) };
-				for (int j = 0; j < 100; j++)
+			int colors = random(1, 5);
+			for (int i = 0; i < colors; i++) {
+				uint8_t color[] = {(uint8_t) random(0, 256), (uint8_t) random(0, 256), (uint8_t) random(0, 256), 0 };
+				for (int j = 0; j < (200 / colors); j++)
 				{
-					particles.push_back(Particle{ mousePosition, { randomf(-300, 300), randomf(-300, 300)}, randomf(1, 5), color });
+					particles.push_back(Particle{ mousePosition, randomOnUnitCircle() * randomf(0, 300), randomf(1, 5), color, randomf(2, 6) });
 				}
 			}	
+		}
+
+		if (input.GetMouseButtonDown(2) && input.GetPreviousMouseButtonDown(2))
+		{
+			for (int i = 0; i < 2; i++) {
+				uint8_t color[] = { (uint8_t)random(0, 256), (uint8_t)random(0, 256), (uint8_t)random(0, 256), 0 };
+				for (int j = 0; j < 5; j++)
+				{
+					particles.push_back(Particle{ mousePosition, randomOnUnitCircle() * randomf(0, 300), randomf(1, 5), color, randomf(2, 6) });
+				}
+			}
 		}
 
 		for (Particle& particle : particles)
@@ -116,17 +122,23 @@ int main(int argc, char* argv[])
 		renderer.SetColor(0, 0, 0, 0);
 		renderer.BeginFrame();
 
-		// draw shape
+		float radius = 200;
+
+		offset += (90 * time.GetDeltaTime());
+		for (float angle = 0; angle < 360; angle += 360 / 30)
+		{
+			float x = Math::Cos(Math::DegToRad(angle + offset)) * Math::Sin((offset + angle) * 0.01f) * radius;
+			float y = Math::Sin(Math::DegToRad(angle + offset)) * Math::Sin((offset + angle) * 0.01f) * radius;
+
+			renderer.SetColor(random(0, 256), random(0, 256), random(0, 256), 0);
+			renderer.DrawRect(x + 400, y + 300, 10.0f, 10.0f);
+		}
+
+		// draw particles
 		renderer.SetColor(255, 255, 255, 0);
 		for (Particle particle : particles)
 		{
 			particle.Draw(renderer);
-		}
-
-		for (int i = 0; points.size() > 1 && i < points.size() - 1; i++) 
-		{
-			renderer.SetColor(rand() % 256, rand() % 256, rand() % 256, 0);
-			renderer.DrawLine(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
 		}
 
 		// show screen
