@@ -155,9 +155,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\EngineTime.h" />
     <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\MathUtils.h" />
+    <ClInclude Include="Source\Model.h" />
     <ClInclude Include="Source\Particle.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\Renderer.h" />
@@ -166,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="Source\EngineTime.cpp" />
     <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\Model.cpp" />
     <ClCompile Include="Source\Particle.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
   </ItemGroup>

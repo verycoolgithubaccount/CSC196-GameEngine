@@ -1,12 +1,10 @@
 #pragma once
 #include <chrono> // More precise time measurement than milliseconds
 
-using namespace std;
-
 class Time
 {
 private:
-	using clock = chrono::high_resolution_clock; // so I can use "clock" instead of this
+	using clock = std::chrono::high_resolution_clock; // so I can use "clock" instead of this
 
 	float m_time{ 0 }; // Time elapsed since program started
 	float m_deltaTime{ 0 }; // Time elapsed since last frame

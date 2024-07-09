@@ -2,7 +2,6 @@
 #include "Vector2.h"
 #include <iostream>
 #include <SDL.h>
-using namespace std;
 
 class Renderer 
 {
@@ -15,7 +14,7 @@ public:
 	bool Initialize();
 	void Shutdown();
 
-	bool CreateWindow(string title, int width, int height);
+	bool CreateWindow(std::string title, int width, int height);
 	void BeginFrame();
 	void EndFrame();
 

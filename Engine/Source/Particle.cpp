@@ -6,7 +6,7 @@ void Particle::Update(float dt)
 	if (lifespan != 0) lifespan -= dt;
 }
 
-void Particle::Draw(Renderer& renderer)
+void Particle::Draw(Renderer& renderer) 
 {
 	if (lifespan > 0)
 	{

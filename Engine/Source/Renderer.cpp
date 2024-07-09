@@ -1,4 +1,5 @@
 #include "Renderer.h"
+using namespace std;
 
 bool Renderer::Initialize()
 {

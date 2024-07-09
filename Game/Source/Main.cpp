@@ -5,11 +5,14 @@
 #include "Random.h"
 #include "EngineTime.h"
 #include "MathUtils.h"
+#include "Model.h"
 
 #include <SDL.h>
 #include <iostream>
 #include <vector>
 #include <fmod.hpp>
+
+using namespace std;
 
 int main(int argc, char* argv[])
 {
@@ -59,6 +62,15 @@ int main(int argc, char* argv[])
 	audio->createSound("snare.wav", FMOD_DEFAULT, 0, &sound);
 	sounds.push_back(sound);
 
+	vector<Vector2> points;
+	points.push_back(Vector2{ - 5, 5 });
+	points.push_back(Vector2{ 0, -5 });
+	points.push_back(Vector2{ 5, 5 });
+	points.push_back(Vector2{ - 5, 5 });
+	Model model{ points, Color{ 1, 1, 1, 0 } };
+	Vector2 position{ 400, 300 };
+	float rotation = 0;
+
 	// Main loop (every frame)
 	bool quit = false;
 	while (!quit)
@@ -81,6 +93,15 @@ int main(int argc, char* argv[])
 		if (input.getKeyDown(SDL_SCANCODE_T) && !input.getPreviousKeyDown(SDL_SCANCODE_T)) audio->playSound(sounds[4], 0, false, nullptr);
 		if (input.getKeyDown(SDL_SCANCODE_Y) && !input.getPreviousKeyDown(SDL_SCANCODE_Y)) audio->playSound(sounds[5], 0, false, nullptr);
 
+		Vector2 velocity{ 0, 0 };
+		if (input.getKeyDown(SDL_SCANCODE_LEFT)) velocity.x = -100;
+		if (input.getKeyDown(SDL_SCANCODE_RIGHT)) velocity.x = 100;
+
+		if (input.getKeyDown(SDL_SCANCODE_UP)) velocity.y = -100;
+		if (input.getKeyDown(SDL_SCANCODE_DOWN)) velocity.y = 100;
+
+		position = position + velocity * time.GetDeltaTime();
+		rotation = velocity.Angle(); // rotation + time.GetDeltaTime();
 
 		/* ---------- UPDATE ---------- */
 		audio->update();
@@ -131,11 +152,13 @@ int main(int argc, char* argv[])
 			float y = Math::Sin(Math::DegToRad(angle + offset)) * Math::Sin((offset + angle) * 0.01f) * radius;
 
 			renderer.SetColor(random(0, 256), random(0, 256), random(0, 256), 0);
-			renderer.DrawRect(x + 400, y + 300, 10.0f, 10.0f);
+			//renderer.DrawRect(x + 400, y + 300, 10.0f, 10.0f);
 		}
 
-		// draw particles
+		// draw things
 		renderer.SetColor(255, 255, 255, 0);
+		model.Draw(renderer, position, rotation, 5);
+
 		for (Particle particle : particles)
 		{
 			particle.Draw(renderer);

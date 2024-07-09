@@ -2,7 +2,6 @@
 #include <random>
 #include "Vector2.h"
 #include "MathUtils.h"
-using namespace std;
 
 // Inline injects this code into wherever it's called instead of referencing it, becuase these functions are outside of a class
 // so if 2 files include Random.h they would be defined multiple times otherwise

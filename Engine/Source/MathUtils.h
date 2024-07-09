@@ -1,6 +1,5 @@
 #pragma once
 #include <math.h>
-using namespace std;
 
 namespace Math
 {
@@ -12,14 +11,24 @@ namespace Math
 	constexpr float RadToDeg(float radians) { return radians * (180.0f / PI); } // radians to degrees
 	constexpr float DegToRad(float degrees) { return degrees * (PI / 180.0f); } // degrees to radians
 
-	float Sin(float radians)
+	inline float Sin(float radians)
 	{
 		return sinf(radians);
 	}
 
-	float Cos(float radians)
+	inline float Cos(float radians)
 	{
 		return cosf(radians);
+	}
+
+	inline float Sqrt(float value)
+	{
+		return sqrtf(value);
+	}
+
+	inline float Atan2(float y, float x) // Arctangent
+	{
+		return atan2f(y, x);
 	}
 
 	/// <summary>
@@ -45,5 +54,11 @@ namespace Math
 	T Abs(T value)
 	{
 		return (value < 0) ? -value : value;
+	}
+
+	template<typename T>
+	T Clamp(T value, T min, T max)
+	{
+		return (value < min) ? min : (value > max) ? max : value;
 	}
 }
