@@ -2,6 +2,7 @@
 #include "Vector2.h"
 #include "Color.h"
 #include "Renderer.h"
+#include "Transform.h"
 #include <vector>
 
 class Model
@@ -17,4 +18,5 @@ public:
 	{}
 
 	void Draw(Renderer& renderer, const Vector2& position, float angle, float scale);
+	void Draw(Renderer& renderer, const Transform& transform);
 };

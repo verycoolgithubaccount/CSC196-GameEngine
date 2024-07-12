@@ -10,7 +10,7 @@ void Particle::Draw(Renderer& renderer)
 {
 	if (lifespan > 0)
 	{
-		renderer.SetColor(red, green, blue, alpha);
+		renderer.SetColor(color1[0], color1[1], color1[2], color1[3]);
 		renderer.DrawRect(position.x, position.y, size, size);
 	}
 }

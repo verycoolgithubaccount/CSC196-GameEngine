@@ -163,6 +163,7 @@
     <ClInclude Include="Source\Particle.h" />
     <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\Renderer.h" />
+    <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\Vector2.h" />
   </ItemGroup>
   <ItemGroup>

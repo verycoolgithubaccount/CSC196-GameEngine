@@ -6,9 +6,11 @@
 class Renderer 
 {
 private:
-	SDL_Window* m_window;
-	SDL_Renderer* m_renderer;
+	SDL_Window* m_window{ nullptr };
+	SDL_Renderer* m_renderer{ nullptr };
 
+	int m_width{ 0 };
+	int m_height{ 0 };
 public:
 	Renderer() = default; // Default constructor, can also do Renderer() {}
 	bool Initialize();
@@ -30,4 +32,7 @@ public:
 
 	void DrawRect(int x, int y, int w, int h);
 	void DrawRect(float x, float y, float w, float h);
+
+	int GetWidth() const { return m_width; }
+	int GetHeight() const { return m_height; }
 };
