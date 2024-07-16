@@ -104,6 +104,7 @@ int main(int argc, char* argv[])
 
 	Scene* scene = new Scene();
 	scene->AddActor(player);
+	scene->AddStars();
 
 
 
@@ -125,6 +126,7 @@ int main(int argc, char* argv[])
 		/* ---------- UPDATE ---------- */
 		scene->Update(time.GetDeltaTime());
 
+		/*
 		Vector2 mousePosition = g_engine.GetInput().GetMousePosition();
 		if (g_engine.GetInput().GetMouseButtonDown(0) && !g_engine.GetInput().GetPreviousMouseButtonDown(0))
 		{
@@ -148,6 +150,7 @@ int main(int argc, char* argv[])
 				}
 			}
 		}
+		*/
 
 		for (Particle& particle : particles)
 		{

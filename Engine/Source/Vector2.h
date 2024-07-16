@@ -40,6 +40,13 @@ struct Vector2
 
 	float Angle() const { return Math::Atan2(y, x); }
 
+	float Distance(Vector2& other) const 
+	{ 
+		float xSquared = (other.x - x) * (other.x - x);
+		float ySquared = (other.y - y) * (other.y - y);
+		return Math::Sqrt((float)(xSquared + ySquared)); 
+	}
+
 	Vector2 Rotate(float radians) const;
 };
 

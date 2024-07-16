@@ -29,6 +29,9 @@ public:
 		m_model{ model }
 	{}
 
+	Vector2 GetPosition() { return m_transform.translation; }
+	float GetSize() { return m_transform.scale; }
+
 	virtual void Update(float dt);
 	virtual void Draw(Renderer& renderer);
 

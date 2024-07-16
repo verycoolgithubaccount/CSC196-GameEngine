@@ -7,7 +7,7 @@ void Particle::Update(float dt)
 
 void Particle::Draw(Renderer& renderer) 
 {
-	if (lifespan > 0)
+	if (lifespan > 0 || lifespan == -42)
 	{
 		renderer.SetColor(color1[0], color1[1], color1[2], color1[3]);
 
