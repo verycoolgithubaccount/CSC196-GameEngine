@@ -11,7 +11,7 @@ void Player::Update(float dt)
 		{
 			m_particles.push_back(Particle{ // Add particles for starboard thruster
 					(m_transform.translation - (Vector2{5.0f + randomf(-0.8, 0.8), 4.4f} *m_transform.scale).Rotate(m_transform.rotation)),
-					m_velocity + (Vector2{randomf(-1.6, 1.6), -6.0f} *m_transform.scale).Rotate(m_transform.rotation),
+					m_velocity * 2 + (Vector2{randomf(-1.6, 1.6), -6.0f} *m_transform.scale).Rotate(m_transform.rotation),
 					randomf(1, 6),
 					Color{1, 1, 1, 0},
 					randomf(0.2 * m_transform.scale, 0.6 * m_transform.scale)
@@ -24,7 +24,7 @@ void Player::Update(float dt)
 		{
 			m_particles.push_back(Particle{ // Add particles for port thruster
 					(m_transform.translation - (Vector2{5.0f + randomf(-0.8, 0.8), -4.4f} *m_transform.scale).Rotate(m_transform.rotation)),
-					m_velocity + (Vector2{randomf(-1.6, 1.6), 6.0f} *m_transform.scale).Rotate(m_transform.rotation),
+					m_velocity * 2 + (Vector2{randomf(-1.6, 1.6), 6.0f} *m_transform.scale).Rotate(m_transform.rotation),
 					randomf(1, 6),
 					Color{1, 1, 1, 0},
 					randomf(0.2 * m_transform.scale, 0.6 * m_transform.scale)
@@ -40,7 +40,7 @@ void Player::Update(float dt)
 		{
 			m_particles.push_back(Particle{ // Add particles for main thruster
 					(m_transform.translation - (Vector2{8.4f, 0 + randomf(-1, 1)} *m_transform.scale).Rotate(m_transform.rotation)),
-					m_velocity + (Vector2{-m_speed * 200, randomf(-1.6, 1.6)} *m_transform.scale).Rotate(m_transform.rotation),
+					m_velocity * 2 + (Vector2{-m_speed * 200, randomf(-1.6, 1.6)} *m_transform.scale).Rotate(m_transform.rotation),
 					randomf(1, 8),
 					Color{randomf(), randomf(0.8f, 1), 1, 0},
 					randomf(0.6 * m_transform.scale, 1.6 * m_transform.scale)
