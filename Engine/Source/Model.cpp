@@ -27,3 +27,17 @@ void Model::Draw(Renderer& renderer, const Transform& transform)
 		renderer.DrawLine(p1.x, p1.y, p2.x, p2.y);
 	}
 }
+
+float Model::GetRadius(float scale)
+{
+	float radius = 0;
+
+	for (const Vector2& point : m_points)
+	{
+		// Getting the largest distance from the center
+		float r = point.Length();
+		if (r > radius) radius = r;
+	}
+
+	return radius * scale;
+}

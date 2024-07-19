@@ -48,6 +48,8 @@ struct Vector2
 	}
 
 	Vector2 Rotate(float radians) const;
+
+	Vector2 Normalized() const { return *this / Length(); } // Get unit vector, length of one with same angle
 };
 
 inline Vector2 Vector2::Rotate(float radians) const

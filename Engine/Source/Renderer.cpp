@@ -34,7 +34,13 @@ bool Renderer::CreateWindow(string title, int width, int height)
 	}
 
 	// create renderer
-	m_renderer = SDL_CreateRenderer(m_window, -1, 0);
+	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); // | is bitwise OR, combines the binary values of these enums (assigned 2 and 4, add to get 6)
+	if (m_renderer == nullptr)
+	{
+		std::cerr << "Error creating SDL renderer: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		return false;
+	}
 	return true;
 }
 
