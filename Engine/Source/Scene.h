@@ -5,6 +5,7 @@
 
 class Renderer;
 class Actor;
+class Game;
 
 class Scene
 {
@@ -12,18 +13,24 @@ protected:
 	std::list<Actor*> m_actors;
 	std::vector<Particle> m_stars;
 
+	Game* m_game{ nullptr };
+	float m_musicTimer = 0;
 public:
-	Scene() = default;
+	//Scene() = default;
+	Scene(Game* game) : m_game{ game } {}
 	
 	void Update(float dt);
 	void Draw(Renderer& renderer);
 
 	void AddActor(Actor* actor);
+	void RemoveAll();
 
 	void AddStars();
 
 	template<typename T>
 	T* GetActor();
+
+	Game* GetGame() { return m_game; }
 };
 
 template<typename T> // Template functions HAVE to be in the header

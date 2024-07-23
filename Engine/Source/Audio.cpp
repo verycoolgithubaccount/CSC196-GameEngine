@@ -44,7 +44,6 @@ bool Audio::PlaySound(const std::string& name)
 	{
 		if (!AddSound(name)) return false;
 	}
-
 	m_audio->playSound(m_sounds[name], 0, false, nullptr);
 
 	return true;

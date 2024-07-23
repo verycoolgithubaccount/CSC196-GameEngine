@@ -1,6 +1,7 @@
 #pragma once
 #include "MathUtils.h"
 #include <cmath>
+#include <iostream>
 
 struct Vector2
 {
@@ -34,6 +35,21 @@ struct Vector2
 	Vector2& operator -= (float s) { x -= s; y -= s; return *this; }
 	Vector2& operator *= (float s) { x *= s; y *= s; return *this; }
 	Vector2& operator /= (float s) { x /= s; y /= s; return *this; }
+
+	// I had to look up how to do this
+	friend std::ostream& operator << (std::ostream& output, const Vector2& v)
+	{
+		output << "(" << v.x << ", " << v.y << ")";
+		return output;
+	}
+
+	bool operator == (const Vector2& v) { return (this->x == v.x && this->y == v.y); }
+	bool operator != (const Vector2& v) { return (this->x != v.x && this->y != v.y); }
+
+	bool isANumber() 
+	{
+		return (x == x && y == y);
+	}
 
 	float LengthSqr() const { return (x * x) + (y * y); }
 	float Length() const { return Math::Sqrt((x * x) + (y * y)); }

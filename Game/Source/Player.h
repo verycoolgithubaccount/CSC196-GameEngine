@@ -7,6 +7,9 @@ private:
 	float m_speed = 0.03f;
 	float m_rotationSpeed = 0.03f;
 	float m_degreesPerSecond = 0;
+	float m_fireTimer = 0;
+	float m_ThrusterSoundTimer = 0;
+	float m_fireModifier = 1;
 public:
 	Player() = default;
 	Player(const Transform& transform) : Actor{ transform } {}
@@ -18,4 +21,8 @@ public:
 	{}
 
 	void Update(float dt);
+
+	void OnCollision(Actor* collider);
+
+	void SetFireModifier(float modifier) { m_fireModifier = modifier; }
 };

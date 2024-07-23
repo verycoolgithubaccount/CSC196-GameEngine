@@ -22,9 +22,6 @@ void Input::Shutdown()
 
 void Input::Update()
 {
-	SDL_Event event;
-	SDL_PollEvent(&event); // Update SDL
-
 	// KEYBOARD INPUT
 	m_prevKeyboardState = m_keyboardState;
 

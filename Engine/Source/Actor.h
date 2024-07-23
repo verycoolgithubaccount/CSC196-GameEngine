@@ -1,6 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include "Particle.h"
+#include "Model.h"
 #include <vector>
 #include <string>
 
@@ -19,7 +20,7 @@ protected:
 	float m_damping{ 0 }; // drag, velocity reduction
 
 	Scene* m_scene{ nullptr };
-	class Model* m_model{ nullptr }; 
+	Model* m_model{ nullptr }; 
 	// ^ You can do this if you don't want to include a class / use its members but want to reference or point to it
 	// Or you can put "class Model;" below the #includes and just put "Model*" here, like I did with Renderer
 
@@ -39,6 +40,7 @@ public:
 	{}
 
 	const Transform& GetTransform() { return m_transform; }
+	const Vector2& GetVelocity() { return m_velocity; }
 
 	virtual void Update(float dt);
 	virtual void Draw(Renderer& renderer);
@@ -50,6 +52,7 @@ public:
 	const std::string& GetTag() { return m_tag; }
 
 	virtual void OnCollision(Actor* collider) = 0;
+	float GetRadius(){ return (m_model) ? m_model->GetRadius(m_transform.scale) : 0; }
 
 	friend class Scene; // Allow Scene to see private and protected variables
 };

@@ -18,6 +18,12 @@ void Scene::Update(float dt)
 		actor->Update(dt);
 	}
 
+	m_musicTimer -= dt;
+	if (m_musicTimer <= 0) {
+		g_engine.GetAudio().PlaySound("music.wav");
+		m_musicTimer = 275;
+	}
+
 	// destroy
 	auto iter = m_actors.begin(); // "auto" automatically knows the type is std::list<Actor*>::iterator
 	while (iter != m_actors.end()) 
@@ -35,11 +41,11 @@ void Scene::Update(float dt)
 	{
 		for (Actor* actor2 : m_actors)
 		{
-			if (actor1 == actor2) continue;
+			if (actor1 == actor2 || (actor1->m_destroyed || actor2->m_destroyed)) continue;
 
 			Vector2 direction = actor1->GetTransform().translation - actor2->GetTransform().translation;
 			float distance = direction.Length();
-			float radius = actor1->m_model->GetRadius(actor1->GetTransform().scale) + actor2->m_model->GetRadius(actor2->GetTransform().scale);
+			float radius = actor1->GetRadius() + actor2->GetRadius();
 
 			if (distance <= radius * 0.6)
 			{
@@ -76,6 +82,11 @@ void Scene::AddActor(Actor* actor)
 	m_actors.push_back(actor);
 }
 
+void Scene::RemoveAll()
+{
+	m_actors.clear();
+}
+
 void Scene::AddStars()
 {
 	for (int i = 0; i < 400; i++)
@@ -85,7 +96,7 @@ void Scene::AddStars()
 			Vector2{ randomf((float) g_engine.GetRenderer().GetWidth()), randomf((float) g_engine.GetRenderer().GetHeight()) },
 			Vector2{ modifier * 10, 0.0f},
 			-42.0f,
-			Color{ (float) (0.5f * modifier * randomf(0.8f, 1.0f)), (float)(0.5f * modifier * randomf(0.8f, 1.0f)), (float)(0.5f * modifier * randomf(0.8f, 1.0f)), 0 },
+			Color{ (float) (0.5f * modifier * randomf(0.8f, 1.0f)), (float)(0.5f * modifier * randomf(0.8f, 1.0f)), (float)(0.5f * modifier * randomf(0.8f, 1.0f))},
 			modifier * 0.3f
 			});
 	}

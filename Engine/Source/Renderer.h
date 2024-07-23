@@ -2,6 +2,7 @@
 #include "Vector2.h"
 #include <iostream>
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 class Renderer 
 {
@@ -35,4 +36,6 @@ public:
 
 	int GetWidth() const { return m_width; }
 	int GetHeight() const { return m_height; }
+
+	friend class Text;
 };

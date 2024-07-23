@@ -13,6 +13,8 @@ bool Engine::Initialize()
     m_input->Initialize();
     m_audio->Initialize();
 
+    m_time = new Time();
+
     return true;
 }
 
@@ -25,6 +27,20 @@ void Engine::Shutdown()
 
 void Engine::Update()
 {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) // Check if anything has happened in operating system, "while" bc there could be multiple simultaneous events
+    {
+        if (event.type == SDL_QUIT) // Quit the window
+        {
+            quit = true;
+        }
+        if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) // Press escape
+        {
+            quit = true;
+        }
+    }
+
+    m_time->Tick();
     m_input->Update();
     m_audio->Update();
 }

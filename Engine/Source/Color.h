@@ -8,7 +8,7 @@ struct Color
 	float r, g, b, a;
 
 	Color() = default;
-	Color(float r, float g, float b, float a = 0) // setting a default since alpha is commonly 0 
+	Color(float r, float g, float b, float a = 1) // setting a default since alpha is commonly 1
 	{ this->r = r; this->g = g; this->b = b; this->a = a; }
 	//Color(int r, int g, int b, int a) { this->r = (float)r; this->g = (float)g; this->b = (float)b; this->a = (float)a; }
 

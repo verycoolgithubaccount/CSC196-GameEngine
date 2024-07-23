@@ -23,11 +23,16 @@
 class Engine
 {
 private:
+	bool quit{ false };
+
 	Renderer* m_renderer{ nullptr };
 	Input* m_input{ nullptr };
 	Audio* m_audio{ nullptr };
 
+	Time* m_time{ nullptr };
+
 public:
+
 	Engine() = default;
 	~Engine() = default;
 
@@ -40,6 +45,9 @@ public:
 	Input& GetInput() { return *m_input; }
 	Audio& GetAudio() { return *m_audio; }
 
+	Time& GetTime() { return *m_time; }
+
+	bool GameQuit() { return quit; }
 };
 
 extern Engine g_engine;
