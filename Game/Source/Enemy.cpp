@@ -9,6 +9,11 @@
 
 void Enemy::Update(float dt)
 {
+	if (m_health <= 0)
+	{
+		m_destroyed = true;
+	}
+
 	Player* player = m_scene->GetActor<Player>();
 	if (player)
 	{
@@ -90,8 +95,8 @@ void Enemy::Update(float dt)
 			Transform transform{ m_transform.translation + (Vector2{ 5.0f, 3.6f } *m_transform.scale).Rotate(m_transform.rotation), m_transform.rotation, m_transform.scale / 10 };
 
 			Bolt* bolt = new Bolt(500, m_velocity, transform, model);
-			bolt->SetLifeSpan(1);
-			bolt->SetTag(this->GetTag());
+			bolt->SetLifeSpan(5);
+			bolt->SetTag("Enemy Bullet");
 			m_scene->AddActor(bolt);
 		}
 	}
@@ -141,7 +146,7 @@ void Enemy::FireMainThruster(float dt)
 				(m_transform.translation - (Vector2{8.4f, 0 + randomf(-1, 1)} *m_transform.scale).Rotate(m_transform.rotation)),
 				m_velocity + (Vector2{-m_speed * 100, randomf(-3, 3)} *m_transform.scale).Rotate(m_transform.rotation),
 				randomf(1, 3),
-				Color{randomf(), randomf(0.8f, 1), 1},
+				Color{1, randomf(), randomf(0.0f, 0.3f)},
 				randomf(0.8f * m_transform.scale, 1.8f * m_transform.scale)
 			});
 	}
@@ -182,9 +187,24 @@ void Enemy::Rotate(Vector2 directionToTarget, float rotationGoal, float dt)
 
 void Enemy::OnCollision(Actor* collider)
 {
-	if (collider->GetTag() == "Player" || collider->GetTag() == "Allied Bullet")
+	if (collider->GetTag() == "Allied Bullet")
 	{
-		m_scene->GetGame()->AddPoints(100);
-		m_destroyed = true;
+		//m_scene->GetGame()->AddPoints(100);
+		m_velocity += ((collider->GetVelocity() - m_velocity) * .1);
+		m_health -= 1;
+	}
+	if (collider->GetTag() == "Player" || collider->GetTag() == "Enemy")
+	{
+		if (m_collisionCooldown < 0) {
+			m_collisionCooldown = 0.1;
+			Vector2 directionToCollider = (collider->GetTransform().translation - m_transform.translation).Normalized();
+			Vector2 relativeVelocity = collider->GetVelocity() - m_velocity;
+
+			float magnitude = (relativeVelocity.x * directionToCollider.x) + (relativeVelocity.y * directionToCollider.y)
+				/ Math::Sqrt((directionToCollider.x * directionToCollider.x) + (directionToCollider.y * directionToCollider.y));
+
+			m_velocity += (directionToCollider) * magnitude;
+			m_health -= int(relativeVelocity.Length() / 200);
+		}
 	}
 }

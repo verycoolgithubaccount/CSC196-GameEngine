@@ -1,5 +1,9 @@
 #pragma once
 #include "Game.h"
+#include "Font.h"
+#include "Text.h"
+#include "Particle.h"
+#include <vector>
 
 class SpaceGame : public Game
 {
@@ -21,7 +25,20 @@ private:
 	float m_spawnTimer{ 0 };
 	float m_spawnTime{ 0 };
 	float m_stateTimer{ 0 };
+	float m_textTimer{ 0 };
+	std::vector<Particle> m_livesDisplay;
+	std::vector<Particle> m_healthDisplay;
 
+	Font* m_avignon = new Font();
+	Font* m_avignonSmall = new Font();
+	Font* m_avignonItalic = new Font();
+	Font* m_homeworld = new Font();
+
+	Text* m_titleText = new Text(m_avignonItalic);
+	Text* m_subtitleText = new Text(m_homeworld);
+	Text* m_startText = new Text(m_avignon);
+	Text* m_livesText = new Text(m_avignonSmall);
+	Text* m_healthText = new Text(m_avignonSmall);
 public:
 	SpaceGame(Engine* engine) : Game{ engine } {}
 
@@ -31,4 +48,5 @@ public:
 	void Draw(Renderer& renderer) override;
 
 	void OnPlayerDeath() override;
+	void OnPlayerDamage(int damage) override;
 };

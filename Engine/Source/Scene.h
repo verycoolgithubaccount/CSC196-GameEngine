@@ -27,6 +27,8 @@ public:
 
 	void AddStars();
 
+	bool HasStars() { return !m_stars.empty(); }
+
 	template<typename T>
 	T* GetActor();
 

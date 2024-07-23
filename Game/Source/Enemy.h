@@ -17,6 +17,7 @@ private:
 	float m_rotationSpeed = 0.03f;
 	float m_degreesPerSecond = 0;
 	float m_fireTimer = 0;
+	int m_health = 3;
 public:
 	Enemy() = default;
 	Enemy(const Transform& transform) : Actor{ transform } {}

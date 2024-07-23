@@ -71,9 +71,10 @@ void Player::Update(float dt)
 		Transform transform{ m_transform.translation + (Vector2{ 5.0f, 3.6f } * m_transform.scale).Rotate(m_transform.rotation), m_transform.rotation, m_transform.scale / 10 };
 
 		Bolt* bolt = new Bolt(500, m_velocity, transform, model);
-		bolt->SetLifeSpan(1);
+		bolt->SetLifeSpan(5);
 		bolt->SetTag("Allied Bullet");
 		m_scene->AddActor(bolt);
+		g_engine.GetAudio().PlaySound("bolt_fire.wav");
 	}
 
 	Actor::Update(dt);
@@ -83,9 +84,41 @@ void Player::Update(float dt)
 
 void Player::OnCollision(Actor* collider)
 {
-	if (collider->GetTag() == "Enemy")
+	SpaceGame* game = dynamic_cast<SpaceGame*>(m_scene->GetGame());
+	if (collider->GetTag() == "Enemy Bullet")
 	{
-		m_destroyed = true;
-		dynamic_cast<SpaceGame*>(m_scene->GetGame())->OnPlayerDeath();
+		m_velocity += ((collider->GetVelocity() - m_velocity) * .1);
+		g_engine.GetAudio().PlaySound("boom.wav");
+
+		game->OnPlayerDamage(1);
+
+		if (game->GetHealth() <= 0) {
+			m_destroyed = true;
+			dynamic_cast<SpaceGame*>(m_scene->GetGame())->OnPlayerDeath();
+		}
+	}
+	else if (collider->GetTag() == "Enemy")
+	{
+		if (m_collisionCooldown < 0) {
+			m_collisionCooldown = 0.1;
+			Vector2 directionToCollider = (collider->GetTransform().translation - m_transform.translation).Normalized();
+			Vector2 relativeVelocity = collider->GetVelocity() - m_velocity;
+
+			float magnitude = (relativeVelocity.x * directionToCollider.x) + (relativeVelocity.y * directionToCollider.y)
+				/ Math::Sqrt((directionToCollider.x * directionToCollider.x) + (directionToCollider.y * directionToCollider.y));
+
+			m_velocity += (directionToCollider)*magnitude;
+			std::cout << relativeVelocity.Length() << std::endl;
+			if (relativeVelocity.Length() > 40) {
+				g_engine.GetAudio().PlaySound("ship_collision.wav");
+			}
+
+			game->OnPlayerDamage(int(relativeVelocity.Length() / 200));
+
+			if (game->GetHealth() <= 0) {
+				m_destroyed = true;
+				dynamic_cast<SpaceGame*>(m_scene->GetGame())->OnPlayerDeath();
+			}
+		}
 	}
 }

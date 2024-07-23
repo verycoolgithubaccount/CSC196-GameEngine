@@ -4,6 +4,7 @@
 
 void Actor::Update(float dt)
 {
+	m_collisionCooldown -= dt;
 	// Check for lifespan
 	if (m_lifespan != 0)
 	{
