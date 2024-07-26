@@ -16,5 +16,7 @@ public:
 
 	void Update(float dt);
 
-	virtual void OnCollision(Actor* collider);
+	void OnCollision(Actor* collider) override;
+	void HitByRay(std::string rayTag) override;
+	void OnDeath() override;
 };

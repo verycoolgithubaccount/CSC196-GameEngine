@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "Ally.h"
 #include "Player.h"
 #include "Scene.h"
 #include "Engine.h"
@@ -7,7 +7,7 @@
 #include "Game.h"
 #include <iostream>
 
-void Enemy::Update(float dt)
+void Ally::Update(float dt)
 {
 	if (m_health <= 0 && m_movementState != MovementState::DEAD) {
 		m_deathTimer = 3;
@@ -36,11 +36,11 @@ void Enemy::Update(float dt)
 		if (m_deathTimer <= 0) {
 			OnDeath();
 		}
-	} 
+	}
 	else {
-		Vector2 targetPosition = m_scene->GetNearestAlliedPosition(m_transform.translation);
-		Vector2 targetVelocity = m_scene->GetNearestAlliedVelocity(m_transform.translation);
-		if (!(targetPosition == Vector2{ (float)HUGE_VAL, (float)HUGE_VAL }))
+		Vector2 targetPosition = m_scene->GetNearestEnemyPosition(m_transform.translation);
+		Vector2 targetVelocity = m_scene->GetNearestEnemyVelocity(m_transform.translation);
+		if (!(targetPosition == Vector2{ (float) HUGE_VAL, (float) HUGE_VAL }))
 		{
 			Vector2 directionToTarget = targetPosition - m_transform.translation;
 			//m_velocity = directionToTarget.Normalized() * m_speed * dt;
@@ -116,12 +116,12 @@ void Enemy::Update(float dt)
 			{
 				m_fireTimer = 0.5;
 				// actor
-				Model* model = new Model{ GameData::boltPoints, Color{ 1.0f, 0.0f, 0.0f } };
+				Model* model = new Model{ GameData::boltPoints, Color{ 0.0f, 1.0f, 0.0f } };
 				Transform transform{ m_transform.translation + (Vector2{ 5.0f, 3.6f } *m_transform.scale).Rotate(m_transform.rotation), m_transform.rotation, m_transform.scale / 10 };
 
 				auto bolt = std::make_unique<Bolt>(500, m_velocity, transform, model);
 				bolt->SetLifeSpan(5);
-				bolt->SetTag("Enemy Bullet");
+				bolt->SetTag("Allied Bullet");
 				m_scene->AddActor(std::move(bolt));
 			}
 		}
@@ -134,7 +134,7 @@ void Enemy::Update(float dt)
 	m_transform.translation.y = Math::Wrap(m_transform.translation.y, (float)g_engine.GetRenderer().GetHeight());
 }
 
-void Enemy::FireStarboardThruster()
+void Ally::FireStarboardThruster()
 {
 	m_degreesPerSecond -= m_rotationSpeed;
 	if (randomf() < 0.1)
@@ -151,7 +151,7 @@ void Enemy::FireStarboardThruster()
 	}
 }
 
-void Enemy::FirePortThruster()
+void Ally::FirePortThruster()
 {
 	if (randomf() < 0.1)
 	{
@@ -168,7 +168,7 @@ void Enemy::FirePortThruster()
 	m_degreesPerSecond += m_rotationSpeed;
 }
 
-void Enemy::FireMainThruster(float dt)
+void Ally::FireMainThruster(float dt)
 {
 	if (randomf() < 0.5)
 	{
@@ -177,7 +177,7 @@ void Enemy::FireMainThruster(float dt)
 			(m_transform.translation - (Vector2{8.4f, 0 + randomf(-1, 1)} *m_transform.scale).Rotate(m_transform.rotation)),
 			m_velocity + (Vector2{-m_speed * 100, randomf(-3, 3)} *m_transform.scale).Rotate(m_transform.rotation),
 			randomf(1, 3),
-			Color{1, randomf(), randomf(0.0f, 0.3f)},
+			Color{ randomf(0.0f, 0.3f), 1, randomf() },
 			randomf(0.8f * m_transform.scale, 1.8f * m_transform.scale)
 		};
 		g_engine.GetParticleSystem().AddParticle(data);
@@ -185,7 +185,7 @@ void Enemy::FireMainThruster(float dt)
 	m_velocity += Vector2{ m_speed, 0.0f }.Rotate(m_transform.rotation);
 }
 
-void Enemy::Rotate(Vector2 directionToTarget, float rotationGoal, float dt)
+void Ally::Rotate(Vector2 directionToTarget, float rotationGoal, float dt)
 {
 	float stepsUntilRotationGoal = 0;
 	bool willOvershoot = false;
@@ -217,23 +217,12 @@ void Enemy::Rotate(Vector2 directionToTarget, float rotationGoal, float dt)
 	}
 }
 
-void Enemy::OnCollision(Actor* collider)
+void Ally::OnCollision(Actor* collider)
 {
-	if (collider->GetTag() == "Allied Bullet" || collider->GetTag() == "Player Bullet")
+	if (collider->GetTag() == "Enemy Bullet")
 	{
-		//m_scene->GetGame()->AddPoints(100);
 		m_velocity += ((collider->GetVelocity() - m_velocity) * .1);
 		m_health -= 1;
-		if (m_movementState != MovementState::DEAD)
-		{
-			if (collider->GetTag() == "Player Bullet")
-			{
-				lastDamagedByPlayer = true;
-				m_scene->GetGame()->AddPoints(3);
-				g_engine.GetAudio().PlaySound("enemy_hit.wav");
-			}
-			else lastDamagedByPlayer = false;
-		}
 	}
 	if (collider->GetTag() == "Player" || collider->GetTag() == "Enemy" || collider->GetTag() == "Ally")
 	{
@@ -245,48 +234,18 @@ void Enemy::OnCollision(Actor* collider)
 			float magnitude = (relativeVelocity.x * directionToCollider.x) + (relativeVelocity.y * directionToCollider.y)
 				/ Math::Sqrt((directionToCollider.x * directionToCollider.x) + (directionToCollider.y * directionToCollider.y));
 
-			m_velocity += (directionToCollider) * magnitude;
+			m_velocity += (directionToCollider)*magnitude;
 			m_health -= int(relativeVelocity.Length() / 200);
-
-			if (m_movementState != MovementState::DEAD)
-			{
-				if (collider->GetTag() == "Player")
-				{
-					lastDamagedByPlayer = true;
-					m_scene->GetGame()->AddPoints(int(relativeVelocity.Length() / 200));
-					g_engine.GetAudio().PlaySound("enemy_hit.wav");
-				}
-				else lastDamagedByPlayer = false;
-			}
 		}
 	}
 }
 
-void Enemy::HitByRay(std::string rayTag)
+void Ally::HitByRay(std::string rayTag)
 {
-	if (rayTag == "Player Laser" || rayTag == "Allied Laser")
-	{
-		if (m_collisionCooldown < 0) {
-			m_collisionCooldown = 0.1;
-			m_health -= 1;
-			if (m_movementState != MovementState::DEAD)
-			{
-				if (rayTag == "Player Laser")
-				{
-					lastDamagedByPlayer = true;
-					m_scene->GetGame()->AddPoints(1);
-					g_engine.GetAudio().PlaySound("enemy_hit.wav");
-				}
-				else lastDamagedByPlayer = false;
-			}
-		}
-	}
 }
 
-void Enemy::OnDeath()
+void Ally::OnDeath()
 {
-	if (lastDamagedByPlayer) m_scene->GetGame()->AddPoints(10);
-
 	for (int i = 0; i < 400; i++) // Explosion
 	{
 		Particle::Data data
@@ -318,7 +277,7 @@ void Enemy::OnDeath()
 			m_transform.translation,
 			m_velocity + (randomOnUnitCircle() * randomf(500, 550)),
 			randomf(0, 1),
-			Color{0.25f, 0.0f, 0.0f},
+			Color{0.0f, 0.25f, 0.0f},
 			randomf(10.0f * m_transform.scale, 20.0f * m_transform.scale)
 		};
 		g_engine.GetParticleSystem().AddParticle(data);

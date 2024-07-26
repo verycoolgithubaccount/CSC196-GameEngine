@@ -1,7 +1,7 @@
 #pragma once
 #include "Actor.h"
 
-class Enemy : public Actor
+class Ally : public Actor
 {
 public:
 	enum class MovementState : char
@@ -20,12 +20,11 @@ private:
 	float m_fireTimer = 0;
 	float m_deathTimer = 0;
 	int m_health = 3;
-	bool lastDamagedByPlayer = false;
 public:
-	Enemy() = default;
-	Enemy(const Transform& transform) : Actor{ transform } {}
-	Enemy(const Transform& transform, Model* model) : Actor{ transform, model } {}
-	Enemy(float speed, float rotationSpeed, const Transform& transform, Model* model) :
+	Ally() = default;
+	Ally(const Transform& transform) : Actor{ transform } {}
+	Ally(const Transform& transform, Model* model) : Actor{ transform, model } {}
+	Ally(float speed, float rotationSpeed, const Transform& transform, Model* model) :
 		Actor{ transform, model },
 		m_speed{ speed },
 		m_rotationSpeed{ rotationSpeed }

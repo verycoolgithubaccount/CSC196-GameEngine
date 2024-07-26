@@ -43,8 +43,9 @@ struct Vector2
 		return output;
 	}
 
-	bool operator == (const Vector2& v) { return (this->x == v.x && this->y == v.y); }
-	bool operator != (const Vector2& v) { return (this->x != v.x && this->y != v.y); }
+	bool operator==(const Vector2& v) const {
+		return (this->x == v.x && this->y == v.y);
+	}
 
 	bool isANumber() 
 	{
@@ -56,7 +57,7 @@ struct Vector2
 
 	float Angle() const { return Math::Atan2(y, x); }
 
-	float Distance(Vector2& other) const 
+	float Distance(const Vector2& other) const 
 	{ 
 		float xSquared = (other.x - x) * (other.x - x);
 		float ySquared = (other.y - y) * (other.y - y);

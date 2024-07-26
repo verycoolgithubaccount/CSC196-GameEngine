@@ -25,8 +25,6 @@ protected:
 	// ^ You can do this if you don't want to include a class / use its members but want to reference or point to it
 	// Or you can put "class Model;" below the #includes and just put "Model*" here, like I did with Renderer
 
-	std::vector<Particle> m_particles;
-
 public:
 	Actor() = default;
 	Actor(const Transform& transform) : m_transform{ transform } {}
@@ -53,7 +51,10 @@ public:
 	const std::string& GetTag() { return m_tag; }
 
 	virtual void OnCollision(Actor* collider) = 0;
+	virtual void OnDeath() = 0;
 	float GetRadius(){ return (m_model) ? m_model->GetRadius(m_transform.scale) : 0; }
+
+	virtual void HitByRay(std::string rayTag) = 0;
 
 	friend class Scene; // Allow Scene to see private and protected variables
 };

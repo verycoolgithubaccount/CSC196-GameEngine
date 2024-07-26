@@ -36,12 +36,12 @@
     <ClCompile Include="Source\Pickup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Ally.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bolt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy.h">
@@ -54,6 +54,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Pickup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Ally.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bolt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

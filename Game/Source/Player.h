@@ -10,6 +10,8 @@ private:
 	float m_fireTimer = 0;
 	float m_ThrusterSoundTimer = 0;
 	float m_fireModifier = 1;
+	bool m_controlsDisabled = false;
+	bool m_firingLaser = false;
 public:
 	Player() = default;
 	Player(const Transform& transform) : Actor{ transform } {}
@@ -22,7 +24,14 @@ public:
 
 	void Update(float dt);
 
-	void OnCollision(Actor* collider);
+	void OnCollision(Actor* collider) override;
+	void OnDeath() override;
+	void HitByRay(std::string rayTag) override;
+	void SetControlsDisabled(bool disabled) { m_controlsDisabled = disabled; }
+
+	void AddVelocity(Vector2 v) { m_velocity += v; }
 
 	void SetFireModifier(float modifier) { m_fireModifier = modifier; }
+
+	void ShootLaser(Vector2 originPosition, Vector2 position, Vector2 direction, Color color, std::string rayTag);
 };

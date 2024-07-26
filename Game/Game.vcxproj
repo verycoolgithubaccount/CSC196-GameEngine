@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Ally.cpp" />
     <ClCompile Include="Source\Bolt.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\GameData.cpp" />
@@ -33,6 +34,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Ally.h" />
     <ClInclude Include="Source\Bolt.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\GameData.h" />

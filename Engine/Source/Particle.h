@@ -5,12 +5,21 @@
 
 struct Particle
 {
+	struct Data
+	{
+		Vector2 position{ 0, 0 };
+		Vector2 velocity{ 0, 0 };
+		float lifespan = 0;
+		Color color{1, 1, 1};
+		float size = 1;
+	};
+
 	Vector2 position{ 0, 0 };
 	Vector2 velocity{ 0, 0 };
 	float lifespan = 0;
-	float fadetime = 0;
-	uint8_t color1[4] = {255, 255, 255, 0};
+	uint8_t color[4] = {255, 255, 255, 0};
 	float size = 4;
+	bool isActive{ false };
 
 	Particle() = default;
 	Particle(Vector2 position, Vector2 velocity) :
@@ -26,11 +35,13 @@ struct Particle
 		position{ position },
 		velocity{ velocity },
 		lifespan{ lifespan },
-		color1{ Color::ToInt(color.r), Color::ToInt(color.g), Color::ToInt(color.b), Color::ToInt(color.a) },
+		color{ Color::ToInt(color.r), Color::ToInt(color.g), Color::ToInt(color.b), Color::ToInt(color.a) },
 		size{ size }
 	{}
 
+	void Initialize(const Data& data);
+
 	void Update(float dt); // delta time - time elapsed since last frame
 	void Draw(Renderer& renderer);
-	void SetColor(Color color) { color1[0] = Color::ToInt(color.r), color1[1] = Color::ToInt(color.g), color1[2] = Color::ToInt(color.b), color1[3] = Color::ToInt(color.a); }
+	void SetColor(Color new_color) { color[0] = Color::ToInt(new_color.r), color[1] = Color::ToInt(new_color.g), color[2] = Color::ToInt(new_color.b), color[3] = Color::ToInt(new_color.a); }
 };
